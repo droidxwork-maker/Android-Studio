@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b0a">
+  <meta name="description" content="Android Studio — a mobile-first development environment. First public beta targeted for Summer 2027.">
+  <title>Android Studio — Your IDE, Anywhere</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#080b0a;--panel:#101613;--panel2:#141d18;--text:#f2f6f2;
+      --muted:#9aa79e;--green:#53e58b;--green2:#a5ffc1;--line:rgba(185,220,198,.14);
+      --blue:#6bbcff;--max:1160px;--radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:90px}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .noise{position:fixed;inset:0;pointer-events:none;opacity:.035;z-index:5;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+    .wrap{width:min(var(--max),calc(100% - 48px));margin:auto}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(8,11,10,.78);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:750;letter-spacing:-.04em;font-size:18px}
+    .brand-mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(145deg,#7dff9d,#18a85c);display:grid;place-items:center;color:#062312;font-weight:900;font-size:17px;box-shadow:0 0 28px #53e58b30}
+    .navlinks{display:flex;align-items:center;gap:30px;color:#b8c3bb;font-size:13px}
+    .navlinks a:hover{color:var(--green)}
+    .nav-cta,.button{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid #6ce99a55;background:transparent;color:#eaf7ee;padding:12px 18px;border-radius:12px;font-size:13px;font-weight:700;letter-spacing:.01em;transition:background .2s,border-color .2s,transform .2s}
+    .nav-cta{border-radius:999px;padding:10px 16px;white-space:nowrap;background:#101a14}
+    .nav-cta:hover,.button:hover{transform:translateY(-2px);background:#173321;border-color:var(--green);box-shadow:0 10px 35px #53e58b18}
+    .button.primary{background:var(--green);color:#06150b;border-color:var(--green)}
+    .button.primary:hover{background:var(--green2);color:#06150b}
+    .menu{display:none;background:none;border:1px solid var(--line);color:white;border-radius:12px;padding:8px 11px}
+    .hero{position:relative;padding:105px 0 86px;overflow:hidden;min-height:650px}
+    .hero-grid{isolation:isolate}
+    .hero-kicker{display:flex;align-items:center;gap:12px}
+    .hero-kicker:after{content:"";height:1px;width:54px;background:linear-gradient(90deg,var(--green),transparent)}
+    .hero-meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:36px;color:#829188;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+    .hero-meta span{display:flex;align-items:center;gap:8px}
+    .hero-meta b{color:#dce9df;font-weight:650}
+    .hero-visual-label{position:absolute;top:25px;right:8%;font-size:10px;letter-spacing:.18em;color:#6f8175;text-transform:uppercase}
+    .orbit{position:absolute;width:470px;height:470px;border:1px solid #75f49b20;border-radius:50%;transform:rotate(-24deg)}
+    .orbit:before,.orbit:after{content:"";position:absolute;border:1px solid #75f49b16;border-radius:50%;inset:35px}
+    .orbit:after{inset:85px}
+    .device:before{content:"";position:absolute;inset:-1px;border-radius:34px;background:linear-gradient(120deg,#ffffff24,transparent 22%,transparent 75%,#67ee9b24);pointer-events:none}
+    .device{z-index:2}
+    .device-stage:after{content:"";position:absolute;width:150px;height:150px;right:0;top:70px;border-radius:50%;background:radial-gradient(circle,#53e58b25,transparent 70%);filter:blur(10px)}
+    .hero:before{content:"";position:absolute;width:660px;height:660px;right:-190px;top:-230px;background:radial-gradient(circle,#31d87520 0,transparent 66%);pointer-events:none}
+    .hero:after{content:"";position:absolute;width:440px;height:440px;left:-250px;bottom:-250px;background:radial-gradient(circle,#168cff16 0,transparent 68%);pointer-events:none}
+    .hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:65px;align-items:center;position:relative;z-index:1}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--green);font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}
+    h1{font-size:clamp(52px,7vw,88px);line-height:.98;letter-spacing:-.075em;margin:23px 0 22px;font-weight:780}
+    h1 span{display:block;color:var(--green)}
+    .lead{max-width:570px;color:#aab7ae;font-size:17px;line-height:1.8;margin:0 0 30px}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+    .button.secondary{background:transparent;color:#e7eee9;border-color:var(--line)}
+    .button.secondary:hover{border-color:#53e58b88}
+    .release-note{margin-top:27px;color:#87958c;font-size:12px}
+    .release-note strong{color:#e7f5eb;font-weight:650}
+    .device-stage{position:relative;min-height:480px;display:grid;place-items:center}
+    .glow{position:absolute;width:390px;height:390px;border-radius:50%;background:#35e77b18;filter:blur(55px)}
+    .device{position:relative;width:min(100%,420px);padding:13px;border:1px solid #73877b66;border-radius:34px;background:linear-gradient(145deg,#29352e,#090d0b 40%,#1b2921);box-shadow:0 35px 100px #000b,0 0 0 7px #ffffff05;transform:rotate(-5deg)}
+    .screen{min-height:440px;border-radius:24px;overflow:hidden;background:#0c1210;border:1px solid #ffffff12}
+    .screenbar{height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;color:#a8b8ad;font-size:10px;border-bottom:1px solid #ffffff12}
+    .screenbody{display:grid;grid-template-columns:42% 58%;min-height:398px}
+    .files{padding:17px 12px;border-right:1px solid #ffffff12;color:#9aa99f;font-size:10px}
+    .filetitle{color:#e6f0e8;font-size:11px;margin-bottom:15px}
+    .tree{display:grid;gap:12px}
+    .tree span:nth-child(2),.tree span:nth-child(5){padding-left:14px}
+    .tree span:nth-child(3),.tree span:nth-child(4){padding-left:28px}
+    .code{padding:18px 13px;font:10px/2 ui-monospace,SFMono-Regular,monospace;color:#b9c9bf;white-space:nowrap;overflow:hidden}
+    .code .purple{color:#c59bff}.code .green{color:#7ce99b}.code .blue{color:#77c6ff}.code .orange{color:#f2bd79}
+    .status{grid-column:1/-1;padding:11px 14px;border-top:1px solid #ffffff12;color:#72e89a;font-size:10px}
+    .float-tag{position:absolute;right:-15px;bottom:45px;background:#111a14;border:1px solid #4de58755;border-radius:14px;padding:13px 17px;box-shadow:0 18px 45px #0008;font-size:12px;color:#c9d8ce}
+    .float-tag b{display:block;color:var(--green);font-size:18px;letter-spacing:-.04em}
+    .section{padding:94px 0;border-top:1px solid var(--line);position:relative}
+    .section:before{content:"";position:absolute;top:0;left:50%;width:min(520px,70vw);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,#53e58b55,transparent)}
+    .section-head h2{max-width:650px}
+    .section-head p{line-height:1.9}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:36px}
+    .kicker{color:var(--green);font-size:11px;font-weight:800;letter-spacing:.17em;text-transform:uppercase}
+    h2{font-size:clamp(32px,4vw,48px);line-height:1.08;letter-spacing:-.06em;margin:12px 0 0}
+    .section-head p{max-width:420px;color:var(--muted);font-size:14px;margin:0}
+    .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .card{position:relative;overflow:hidden;padding:27px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,#121a15,#0d120f);min-height:220px;transition:.25s}
+    .card:after{content:"";position:absolute;width:120px;height:120px;right:-70px;top:-70px;border-radius:50%;background:#53e58b12;transition:.25s}
+    .card:hover:after{transform:scale(2.2)}
+    .card:hover{transform:translateY(-5px);border-color:#53e58b55}
+    .icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;color:var(--green);background:#53e58b12;border:1px solid #53e58b26;font-size:20px;margin-bottom:25px}
+    .card h3{font-size:18px;letter-spacing:-.03em;margin:0 0 9px}
+    .card p{color:var(--muted);font-size:13px;line-height:1.75;margin:0}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}
+    .chip{font-size:10px;color:#c8d8ce;border:1px solid var(--line);border-radius:99px;padding:5px 9px}
+    .language-panel{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .language{position:relative;overflow:hidden;padding:30px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(135deg,#121b16,#0c110f);display:flex;align-items:center;gap:22px;min-height:170px;transition:.25s}
+    .language:after{content:"";position:absolute;width:190px;height:190px;right:-80px;bottom:-110px;border-radius:50%;background:#53e58b0d;filter:blur(5px)}
+    .language:hover{transform:translateY(-4px);border-color:#53e58b66}
+    .language-symbol{width:76px;height:76px;flex:0 0 76px;border-radius:20px;background:#18241c;display:grid;place-items:center;border:1px solid #ffffff10}
+    .language-symbol img{width:53px;height:53px;object-fit:contain;filter:drop-shadow(0 7px 14px #0008)}
+    .language-copy{min-width:0;position:relative;z-index:1}
+    .language h3{margin:0;font-size:23px;letter-spacing:-.04em}.language p{margin:6px 0 0;color:var(--muted);font-size:12px}
+    .language .label{margin-left:auto;color:var(--green);font-size:9px;letter-spacing:.1em;white-space:nowrap;position:relative;z-index:1}
+    .language-top{display:flex;align-items:center;gap:10px}
+    .language-index{position:absolute;right:22px;top:18px;color:#617067;font-size:10px;letter-spacing:.12em}
+    .roadmap{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:48px;border:1px solid #53e58b38;border-radius:26px;background:radial-gradient(circle at 90% 0,#53e58b19,transparent 45%),linear-gradient(120deg,#111b14,#0b100d)}
+    .roadmap:after{content:"2027";position:absolute;right:20px;bottom:-65px;font-size:190px;line-height:1;font-weight:900;letter-spacing:-.1em;color:#ffffff05;pointer-events:none}
+    .roadmap>*{position:relative;z-index:1}
+    .date{font-size:clamp(40px,6vw,70px);font-weight:800;letter-spacing:-.07em;line-height:1;color:var(--green);margin:15px 0}
+    .roadmap p{color:var(--muted);font-size:14px;max-width:500px}
+    .roadmap-side{border-left:1px solid var(--line);padding-left:32px}
+    .roadmap-side strong{display:block;margin-bottom:9px}
+    .roadmap-side span{font-size:12px;color:var(--muted)}
+    .blog-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}
+    .blog-card{padding:27px;border:1px solid var(--line);border-radius:var(--radius);background:#0e1411;min-height:190px;display:flex;flex-direction:column;justify-content:space-between}
+    .blog-card.featured{background:linear-gradient(135deg,#14251a,#0d1310 70%);border-color:#53e58b35}
+    .blog-meta{color:var(--green);font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:750}
+    .blog-card h3{font-size:21px;letter-spacing:-.04em;margin:14px 0 8px}
+    .blog-card p{color:var(--muted);font-size:13px;margin:0}
+    .blog-foot{margin-top:25px;color:#85938a;font-size:11px}
+    .cta{padding:70px 35px;text-align:center;border:1px solid var(--line);border-radius:28px;background:radial-gradient(ellipse at 50% 0,#53e58b19,transparent 60%),#0e1411}
+    .cta h2{max-width:700px;margin:14px auto}
+    .cta p{color:var(--muted);font-size:14px;margin:0 auto 25px;max-width:520px}
+    footer{padding:34px 0 45px;border-top:1px solid var(--line);color:#7f8c83;font-size:11px}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .footer-brand{color:#e9f0eb;font-weight:750;font-size:14px}
+    .footer-links{display:flex;gap:20px}
+    .footer-links a:hover{color:var(--green)}
+    @media(max-width:850px){
+      .hero-grid{grid-template-columns:1fr;gap:25px}.hero{padding:75px 0 55px}.device-stage{min-height:440px}
+      .section{padding:72px 0}.feature-grid{grid-template-columns:repeat(2,1fr)}
+      .section-head{align-items:start;flex-direction:column}.roadmap{grid-template-columns:1fr;gap:15px}.roadmap-side{border-left:0;border-top:1px solid var(--line);padding:22px 0 0}
+    }
+    @media(max-width:600px){
+      .wrap{width:min(100% - 32px,var(--max))}nav{height:66px}.navlinks{display:none;position:absolute;top:66px;left:0;right:0;padding:18px 24px 22px;background:#0b100d;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;gap:18px}.navlinks.open{display:flex}.menu{display:block}.nav-cta{display:none}
+      h1{font-size:58px}.lead{font-size:15px}.device-stage{min-height:360px}.device{width:88%;padding:9px;border-radius:26px}.screen{min-height:340px;border-radius:18px}.screenbody{min-height:298px}.files{padding:13px 8px;font-size:8px}.code{font-size:8px;padding:12px 8px}.float-tag{right:-4px;bottom:20px;padding:10px 13px}
+      .feature-grid{grid-template-columns:1fr}.card{min-height:unset;padding:23px}.language-panel{grid-template-columns:1fr}.language{padding:20px;gap:14px}.language-symbol{width:48px;height:48px}.roadmap{padding:25px}.blog-grid{grid-template-columns:1fr}.cta{padding:50px 22px}.footer-inner{align-items:flex-start;flex-direction:column}.footer-links{flex-wrap:wrap}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+
+    /* Refined responsive layout + Material icon system */
+    .material-symbol{
+      font-family:"Material Symbols Rounded";
+      font-weight:normal;font-style:normal;font-size:25px;line-height:1;
+      display:inline-flex;align-items:center;justify-content:center;
+      white-space:nowrap;direction:ltr;font-feature-settings:"liga";
+      -webkit-font-smoothing:antialiased;
+    }
+    .icon{width:50px;height:50px;border-radius:15px;font-size:0;margin:0 0 24px;position:relative;z-index:1}
+    .icon .material-symbol{font-size:25px}
+    .card h3,.card p,.card .chips{position:relative;z-index:1}
+    .card{min-width:0}
+    .card p{max-width:42ch;overflow-wrap:break-word}
+    .hero-grid>*{min-width:0}
+    .device-stage{isolation:isolate;min-width:0}
+    .device{width:min(100%,500px);padding:12px;border-radius:38px;transform:rotate(-2deg);z-index:2}
+    .device:after{content:"";position:absolute;inset:7px;border:1px solid #b5d5c022;border-radius:31px;pointer-events:none}
+    .screen{min-height:455px;border-radius:27px;background:linear-gradient(145deg,#101a15,#080d0b 65%);box-shadow:inset 0 1px #ffffff12}
+    .screenbar{height:49px;padding:0 18px;font-size:11px;background:#ffffff04}
+    .screenbody{min-height:405px;grid-template-columns:39% 61%}
+    .files{padding:19px 14px;font-size:10px;background:linear-gradient(180deg,#ffffff03,transparent)}
+    .filetitle{font-size:10px;letter-spacing:.15em;color:#71867a}
+    .tree{gap:13px}
+    .tree span{white-space:nowrap}
+    .code{padding:22px 18px;font-size:11px;line-height:2.05;white-space:normal;overflow-wrap:anywhere}
+    .status{padding:13px 17px;font-size:10px;letter-spacing:.02em;background:#53e58b08}
+    .float-tag{z-index:5;right:-24px;bottom:30px;max-width:205px;padding:14px 17px;background:#132219;border-color:#53e58b70;box-shadow:0 18px 55px #000d}
+    .orbit{z-index:0;pointer-events:none}
+    .glow{z-index:0}
+    .hero-visual-label{z-index:1}
+    .nav-cta{min-width:112px;min-height:44px}
+    .language{min-width:0}
+    .language-copy p{max-width:25ch;line-height:1.65}
+    .language .label{white-space:normal;text-align:right;max-width:105px}
+    @media(max-width:1100px){
+      .wrap{width:min(100% - 40px,var(--max))}
+      .hero-grid{grid-template-columns:1fr;gap:24px}
+      .hero{padding:82px 0 65px}
+      .hero-grid>div:first-child{max-width:760px}
+      .device-stage{width:min(100%,700px);margin:0 auto;min-height:560px}
+      .device{width:min(82%,520px)}
+      .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .section-head{align-items:flex-start}
+    }
+    @media(max-width:700px){
+      .wrap{width:calc(100% - 34px)}
+      nav{gap:12px}
+      .brand{font-size:16px;gap:9px}
+      .navlinks{display:none;position:absolute;top:66px;left:0;right:0;padding:18px 22px 22px;background:#0b100d;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;gap:18px}
+      .navlinks.open{display:flex}
+      .menu{display:block;flex:0 0 auto}
+      .nav-cta{display:none}
+      .hero{padding:65px 0 48px;min-height:0}
+      h1{font-size:clamp(46px,12vw,66px);line-height:1.01}
+      .lead{font-size:15px;line-height:1.75;max-width:100%}
+      .actions{align-items:stretch}
+      .actions .button{flex:1 1 100%;min-height:48px}
+      .hero-meta{gap:12px 18px;font-size:9px;margin-top:25px}
+      .device-stage{min-height:410px;width:100%;overflow:visible}
+      .device{width:min(88%,430px);padding:8px;border-radius:27px;transform:rotate(-1.5deg)}
+      .device:after{inset:5px;border-radius:22px}
+      .screen{min-height:330px;border-radius:20px}
+      .screenbar{height:38px;padding:0 12px;font-size:9px}
+      .screenbody{min-height:292px;grid-template-columns:40% 60%}
+      .files{padding:12px 8px;font-size:8px}
+      .filetitle{font-size:8px;margin-bottom:11px}
+      .tree{gap:9px}
+      .code{padding:14px 9px;font-size:8px;line-height:2}
+      .status{padding:9px 11px;font-size:8px}
+      .orbit{width:340px;height:340px}
+      .hero-visual-label{right:0;top:0;font-size:8px}
+      .float-tag{right:0;bottom:4px;max-width:170px;padding:10px 12px;font-size:9px}
+      .float-tag b{font-size:14px}
+      .section{padding:64px 0}
+      .section-head{gap:13px;margin-bottom:25px}
+      .section-head p{font-size:13px;max-width:100%;line-height:1.7}
+      .feature-grid{grid-template-columns:1fr;gap:12px}
+      .card{padding:22px;min-height:0}
+      .card p{max-width:100%;font-size:13px}
+      .icon{width:46px;height:46px;margin-bottom:18px}
+      .language-panel{grid-template-columns:1fr;gap:12px}
+      .language{padding:19px;min-height:125px;gap:13px;display:grid;grid-template-columns:58px minmax(0,1fr);align-items:center}
+      .language-symbol{width:54px;height:54px;flex-basis:auto;grid-row:1 / span 2}
+      .language-symbol img{width:40px;height:40px}
+      .language-copy{grid-column:2}
+      .language h3{font-size:20px}
+      .language-copy p{font-size:11px;max-width:100%;margin-top:3px}
+      .language .label{grid-column:2;margin:0;text-align:left;max-width:none;font-size:9px}
+      .language-index{right:14px;top:12px;font-size:8px}
+      .roadmap{padding:24px 20px;gap:14px}
+      .roadmap h2 br{display:none}
+      .date{font-size:clamp(38px,10vw,54px)}
+      .roadmap p{font-size:13px;line-height:1.75}
+      .roadmap-side{padding-top:18px}
+      .blog-grid{grid-template-columns:1fr}
+      .cta{padding:42px 20px}
+      .cta h2{font-size:32px}
+      .footer-inner{align-items:flex-start;flex-direction:column}
+      .footer-links{gap:14px;flex-wrap:wrap}
+    }
+    @media(max-width:380px){
+      .wrap{width:calc(100% - 28px)}
+      .hero-meta{font-size:8px;letter-spacing:.06em}
+      .device-stage{min-height:350px}
+      .screen{min-height:295px}
+      .screenbody{min-height:257px}
+      .tree{gap:7px}
+      .code{font-size:7px}
+      .float-tag{right:-2px;bottom:0}
+    }
+
+
+    /* Theme switcher */
+    .nav-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+    .theme-toggle{width:42px;height:42px;display:inline-grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:var(--panel);color:var(--text);cursor:pointer;transition:transform .2s,border-color .2s,background .25s,color .25s}
+    .theme-toggle:hover{transform:translateY(-2px);border-color:var(--green);color:var(--green)}
+    .theme-toggle .material-symbol{font-size:21px}
+    body,.topbar,.card,.language,.roadmap,.blog-card,.cta,.device,.screen,.float-tag,.nav-cta,.button,.theme-toggle{transition:background-color .28s,color .28s,border-color .28s,box-shadow .28s}
+    body[data-theme="light"]{--bg:#f4f7f4;--panel:#ffffff;--panel2:#eaf1eb;--text:#17231b;--muted:#5d6d62;--line:rgba(35,75,48,.16);--green:#16864b;--green2:#0d6e3b;--blue:#2678b8;color-scheme:light}
+    body[data-theme="light"] .topbar{background:rgba(244,247,244,.86)}
+    body[data-theme="light"] .navlinks{color:#526258}
+    body[data-theme="light"] .nav-cta{background:#e8f2eb;color:#183b27;border-color:#b7d2bf}
+    body[data-theme="light"] .nav-cta:hover,body[data-theme="light"] .button:hover{background:#dcece1}
+    body[data-theme="light"] .button{color:#183b27;border-color:#b7d2bf}
+    body[data-theme="light"] .button.primary{background:#16864b;color:#fff;border-color:#16864b}
+    body[data-theme="light"] .button.primary:hover{background:#0d6e3b;color:#fff}
+    body[data-theme="light"] .button.secondary{background:#fff;color:#263b2d;border-color:#d5e1d8}
+    body[data-theme="light"] .brand-mark{color:#fff}
+    body[data-theme="light"] .hero:before{background:radial-gradient(circle,#31d87518 0,transparent 66%)}
+    body[data-theme="light"] .hero:after{background:radial-gradient(circle,#168cff0c 0,transparent 68%)}
+    body[data-theme="light"] .lead,body[data-theme="light"] .section-head p,body[data-theme="light"] .card p,body[data-theme="light"] .language p,body[data-theme="light"] .roadmap p,body[data-theme="light"] .roadmap-side span,body[data-theme="light"] .blog-card p,body[data-theme="light"] .cta p{color:#607066}
+    body[data-theme="light"] .hero-meta,body[data-theme="light"] .release-note,body[data-theme="light"] footer{color:#69786e}
+    body[data-theme="light"] .hero-meta b,body[data-theme="light"] .release-note strong{color:#263d2e}
+    body[data-theme="light"] .card{background:linear-gradient(145deg,#fff,#f0f5f1);border-color:#dce6de}
+    body[data-theme="light"] .language{background:linear-gradient(135deg,#fff,#f0f5f1);border-color:#dce6de}
+    body[data-theme="light"] .language-symbol{background:#e8f2eb;border-color:#d4e5d8}
+    body[data-theme="light"] .chip{color:#4b5e51;border-color:#d6e2d9}
+    body[data-theme="light"] .roadmap{background:radial-gradient(circle at 90% 0,#53e58b18,transparent 45%),linear-gradient(120deg,#edf6ef,#fff);border-color:#c9dfcf}
+    body[data-theme="light"] .roadmap:after{color:#163c2510}
+    body[data-theme="light"] .blog-card{background:#fff;border-color:#dce6de}
+    body[data-theme="light"] .blog-card.featured{background:linear-gradient(135deg,#eaf5ed,#fff 75%);border-color:#c9dfcf}
+    body[data-theme="light"] .cta{background:radial-gradient(ellipse at 50% 0,#53e58b18,transparent 60%),#fff;border-color:#dce6de}
+    body[data-theme="light"] .footer-brand{color:#1c3023}
+    body[data-theme="light"] .device{background:linear-gradient(145deg,#d7e1da,#f8fbf8 40%,#b8c9bd);border-color:#a9bbae;box-shadow:0 35px 90px #183b251c,0 0 0 7px #183b2508}
+    body[data-theme="light"] .screen{background:#f8fbf8;border-color:#d7e2d9}
+    body[data-theme="light"] .screenbar{color:#53665a;border-color:#dce6de}
+    body[data-theme="light"] .files{color:#607267;border-color:#dce6de}
+    body[data-theme="light"] .filetitle{color:#263b2d}
+    body[data-theme="light"] .code{color:#40574a}
+    body[data-theme="light"] .status{color:#16864b;border-color:#dce6de}
+    body[data-theme="light"] .float-tag{background:#fff;color:#526258;border-color:#b9d9c3;box-shadow:0 18px 45px #183b2518}
+    body[data-theme="light"] .float-tag b{color:#16864b}
+    body[data-theme="light"] .menu{color:#263b2d}
+    @media(max-width:700px){.nav-actions{margin-left:auto}.nav-cta{display:none}.theme-toggle{width:40px;height:40px}.navlinks{background:var(--bg)}}
+    @media(prefers-reduced-motion:reduce){.theme-toggle{transition:none}}
+
+
+    /* Remove browser-default blue tap/focus flashes; keep a subtle accessible focus state. */
+    a, button, input, select, textarea, [role="button"]{
+      -webkit-tap-highlight-color:transparent;
+      tap-highlight-color:transparent;
+    }
+    a:focus, button:focus, [role="button"]:focus{
+      outline:none;
+      box-shadow:none;
+    }
+    a:focus-visible, button:focus-visible, [role="button"]:focus-visible{
+      outline:2px solid var(--green);
+      outline-offset:4px;
+      box-shadow:0 0 0 4px color-mix(in srgb,var(--green) 14%,transparent);
+    }
+    button::-moz-focus-inner{border:0}
+    @media(hover:none){
+      .nav-cta:active,.button:active,.theme-toggle:active,.menu:active{
+        transform:scale(.985);
+        filter:brightness(1.04);
+      }
+    }
+
+
+    .release-action{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:22px}
+    .release-hint{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:11px}
+    .release-hint .material-symbol{font-size:17px;color:var(--green)}
+    .release-grid .card{min-height:205px}
+    @media(max-width:700px){.release-action{align-items:stretch;flex-direction:column}.release-action .button{width:100%}.release-grid .card{min-height:0}}
+
+  </style>
+</head>
+<body>
+<div class="noise"></div>
+<header class="topbar">
+  <div class="wrap">
+    <nav aria-label="Main navigation">
+      <a class="brand" href="#top"><span class="brand-mark">A</span><span>Android Studio</span></a>
+      <div class="navlinks" id="navlinks">
+        <a href="#features">Features</a><a href="#languages">Languages</a><a href="#roadmap">Roadmap</a><a href="#releases">Releases</a><a href="#blog">Updates</a>
+      </div>
+      <div class="nav-actions"><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" title="Switch theme"><span class="material-symbol" id="themeIcon" aria-hidden="true">light_mode</span></button><a class="nav-cta" href="https://github.com/droidxwork-maker/Android-Studio" target="_blank" rel="noopener">GitHub <span>↗</span></a></div>
+      <button class="menu" id="menu" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow hero-kicker"><span class="dot"></span> A mobile-first development environment</div>
+        <h1>Your IDE.<span>Anywhere.</span></h1>
+        <p class="lead">A new approach to Android development — bringing coding, building and native development together in one environment, designed for your phone.</p>
+        <div class="actions">
+          <a class="button primary" href="#roadmap">Discover the first Beta <span>↗</span></a>
+          <a class="button secondary" href="#features">Explore capabilities</a>
+        </div>
+        <div class="release-note">FIRST PUBLIC BETA · <strong>Targeting Summer 2027</strong></div>
+        <div class="hero-meta"><span><b>01</b> Android projects</span><span><b>02</b> Unified build</span><span><b>03</b> Native workflow</span></div>
+      </div>
+      <div class="device-stage" aria-label="Illustration of the Android Studio mobile IDE">
+        <div class="hero-visual-label">THE MOBILE IDE EXPERIENCE</div><div class="orbit"></div>
+        <div class="glow"></div>
+        <div class="device">
+          <div class="screen">
+            <div class="screenbar"><span>● Android Studio</span><span>•••</span></div>
+            <div class="screenbody">
+              <div class="files"><div class="filetitle">PROJECT</div><div class="tree">
+                <span>⌄　MyApplication</span><span>⌄　app</span><span>▸　manifests</span><span>▾　java</span><span>　　MainActivity.kt</span><span>▸　res</span><span>▸　Native</span><span>　　CMakeLists.txt</span><span>▸　Libraries</span><span>　　build.gradle.kts</span>
+              </div></div>
+              <div class="code"><span class="purple">package</span> com.example.app<br><br><span class="purple">class</span> <span class="green">MainActivity</span> {<br>&nbsp; <span class="purple">fun</span> onCreate() {<br>&nbsp;&nbsp; <span class="blue">setContentView</span>(<br>&nbsp;&nbsp;&nbsp; R.layout.main<br>&nbsp;&nbsp; )<br>&nbsp; }<br>}<br><br><span class="orange">// Build. Run. Create.</span></div>
+              <div class="status">✓ Build pipeline ready</div>
+            </div>
+          </div>
+        </div>
+        <div class="float-tag">DEVELOPMENT, REIMAGINED<b>On your phone.</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="wrap">
+      <div class="section-head"><div><div class="kicker">Built for developers</div><h2>More than a code editor.</h2></div><p>A focused set of development capabilities, brought together to make mobile development workflows more capable.</p></div>
+      <div class="feature-grid">
+        <article class="card"><div class="icon"><span class="material-symbol">account_tree</span></div><h3>Unified Build System</h3><p>An integrated build workflow designed to handle project compilation and bring essential build operations into one place.</p><div class="chips"><span class="chip">Integrated pipeline</span><span class="chip">Build variants</span></div></article>
+        <article class="card"><div class="icon"><span class="material-symbol">hub</span></div><h3>Advanced Dependencies</h3><p>Dependency resolution and project library management designed for complex Android projects.</p><div class="chips"><span class="chip">Dependency graph</span><span class="chip">Library management</span></div></article>
+        <article class="card"><div class="icon"><span class="material-symbol">memory</span></div><h3>Native Development</h3><p>Work with native projects and create native libraries as part of a broader mobile development workflow.</p><div class="chips"><span class="chip">C / C++</span><span class="chip">NDK</span><span class="chip">JNI</span></div></article>
+        <article class="card"><div class="icon"><span class="material-symbol">code</span></div><h3>Modern Code Editing</h3><p>A mobile-oriented coding experience designed to make working with project files and source code more practical.</p></article>
+        <article class="card"><div class="icon"><span class="material-symbol">android</span></div><h3>Android Projects</h3><p>Create, manage and build Android application projects directly from a mobile development environment.</p></article>
+        <article class="card"><div class="icon"><span class="material-symbol">smartphone</span></div><h3>Designed for Mobile</h3><p>A development workflow shaped around the realities of working on a phone — without treating mobile as an afterthought.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="languages">
+    <div class="wrap">
+      <div class="section-head"><div><div class="kicker">Language support</div><h2>Your tools. Your languages.</h2></div><p>The first Beta is planned to expand language support and bring Kotlin into the development workflow.</p></div>
+      <div class="language-panel">
+        <article class="language"><span class="language-index">01 / LANGUAGE</span><div class="language-symbol"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin logo"></div><div class="language-copy"><h3>Kotlin</h3><p>Planned for the first Beta release</p></div><span class="label">COMING IN BETA</span></article>
+        <article class="language"><span class="language-index">02 / LANGUAGE</span><div class="language-symbol"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java logo"></div><div class="language-copy"><h3>Java 1–17</h3><p>Support planned for the first Beta</p></div><span class="label">JAVA 1–17</span></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="roadmap">
+    <div class="wrap">
+      <div class="roadmap">
+        <div><div class="kicker">The first public milestone</div><h2>We’re building toward<br>something bigger.</h2><div class="date">Summer 2027</div><p>The first public Beta release is targeted for Summer 2027. It is planned to introduce Kotlin support alongside the project's growing Android and native development capabilities.</p></div>
+        <div class="roadmap-side"><strong>FIRST PUBLIC BETA</strong><span>Development is ongoing. Features and release timing may evolve as the project progresses.</span><div class="chips"><span class="chip">Android</span><span class="chip">Kotlin</span><span class="chip">Java 1–17</span><span class="chip">Native</span></div></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section" id="releases">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="kicker">Official downloads</div><h2>Every release. In one place.</h2></div>
+        <p>Official Android Studio application versions will be published in the project’s GitHub repository and updated as new releases become available.</p>
+      </div>
+      <div class="feature-grid release-grid">
+        <article class="card">
+          <div class="icon"><span class="material-symbol">download</span></div>
+          <h3>Download releases</h3>
+          <p>Find the published application packages in the repository’s official Releases section.</p>
+          <div class="chips"><span class="chip">Official builds</span><span class="chip">Versioned releases</span></div>
+        </article>
+        <article class="card">
+          <div class="icon"><span class="material-symbol">history</span></div>
+          <h3>Version history</h3>
+          <p>Check release versions and follow the project’s progress as builds are published.</p>
+          <div class="chips"><span class="chip">Release archive</span><span class="chip">Milestones</span></div>
+        </article>
+        <article class="card">
+          <div class="icon"><span class="material-symbol">system_update_alt</span></div>
+          <h3>Follow updates</h3>
+          <p>New versions and their release information will be added to the same official repository.</p>
+          <div class="chips"><span class="chip">Release notes</span><span class="chip">Project updates</span></div>
+        </article>
+      </div>
+      <div class="release-action">
+        <a class="button primary" href="https://github.com/droidxwork-maker/Android-Studio/releases" target="_blank" rel="noopener">
+          Open official Releases <span aria-hidden="true">↗</span>
+        </a>
+        <span class="release-hint"><span class="material-symbol">verified</span> Official project repository</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="blog">
+    <div class="wrap">
+      <div class="section-head"><div><div class="kicker">From the project</div><h2>Development journal.</h2></div><p>Project notes, development milestones and announcements will live here as the journey continues.</p></div>
+      <div class="blog-grid">
+        <article class="blog-card featured"><div><div class="blog-meta">Project announcement · 01</div><h3>The road to the first Beta</h3><p>Android Studio is being developed with a clear goal: bring a capable Android and native development workflow to mobile.</p></div><div class="blog-foot">SUMMER 2027 · TARGET MILESTONE</div></article>
+        <article class="blog-card"><div><div class="blog-meta">What's ahead</div><h3>One environment. Multiple workflows.</h3><p>Follow the progress of the build system, language support and native development features.</p></div><div class="blog-foot">MORE UPDATES COMING SOON</div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap"><div class="cta"><div class="eyebrow"><span class="dot"></span> Follow the development</div><h2>The future of mobile development is being built.</h2><p>Follow the repository for project updates, milestones and the first public Beta announcement.</p><a class="button" href="https://github.com/droidxwork-maker/Android-Studio" target="_blank" rel="noopener">View on GitHub ↗</a></div></div>
+  </section>
+</main>
+
+<footer><div class="wrap footer-inner"><div><div class="footer-brand">Android Studio</div><div>Code. Build. Run. Anywhere.</div></div><div class="footer-links"><a href="#features">Features</a><a href="#roadmap">Roadmap</a><a href="#releases">Releases</a><a href="#blog">Updates</a><a href="https://github.com/droidxwork-maker/Android-Studio" target="_blank" rel="noopener">GitHub ↗</a></div><div>© 2026 Android Studio Project</div></div></footer>
+<script>
+
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  const savedTheme = (() => { try { return localStorage.getItem('android-studio-theme'); } catch (_) { return null; } })();
+  function applyTheme(theme) {
+    document.body.dataset.theme = theme;
+    const isDark = theme === 'dark';
+    themeIcon.textContent = isDark ? 'light_mode' : 'dark_mode';
+    themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    themeToggle.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    if (themeMeta) themeMeta.setAttribute('content', isDark ? '#080b0a' : '#f4f7f4');
+  }
+  applyTheme(savedTheme === 'light' ? 'light' : 'dark');
+  themeToggle.addEventListener('click', () => {
+    const next = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem('android-studio-theme', next); } catch (_) {}
+  });
+
+  const menu = document.getElementById('menu');
+  const links = document.getElementById('navlinks');
+  menu.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    menu.setAttribute('aria-expanded', String(open));
+    menu.textContent = open ? '✕' : '☰';
+  });
+  links.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    links.classList.remove('open'); menu.setAttribute('aria-expanded','false'); menu.textContent='☰';
+  }));
+</script>
+</body>
+  </html>
