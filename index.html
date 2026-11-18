@@ -6,8 +6,21 @@
   <meta name="theme-color" content="#080b0a">
   <meta name="description" content="Android Studio — a mobile-first development environment. First public beta targeted for Summer 2027.">
   <title>Android Studio — Your IDE, Anywhere</title>
+
+  <!-- Hero image (rename your file to hero-bg.jpg next to this HTML) -->
+  <link rel="preload" as="image" href="hero-bg.jpg" fetchpriority="high">
+
+  <!-- Open Graph / social share -->
+  <meta property="og:title" content="Android Studio — Your IDE, Anywhere">
+  <meta property="og:description" content="A mobile-first Android IDE. First public beta — Summer 2027.">
+  <meta property="og:image" content="hero-bg.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="hero-bg.jpg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
   <style>
     :root{
@@ -286,8 +299,8 @@
     body[data-theme="light"] .footer-brand{color:#1c3023}
     body[data-theme="light"] .device{background:linear-gradient(145deg,#d7e1da,#f8fbf8 40%,#b8c9bd);border-color:#a9bbae;box-shadow:0 35px 90px #183b251c,0 0 0 7px #183b2508}
     body[data-theme="light"] .screen{background:#f8fbf8;border-color:#d7e2d9}
-    body[data-theme="light"] .screenbar{color:#53665a;border-color:#dce6de}
-    body[data-theme="light"] .files{color:#607267;border-color:#dce6de}
+    body[data-theme="light"] .screenbar{color:#53665a;border-color:#dce6de;background:#f0f6f2}
+    body[data-theme="light"] .files{color:#607267;border-color:#dce6de;background:linear-gradient(180deg,#ffffff,transparent)}
     body[data-theme="light"] .filetitle{color:#263b2d}
     body[data-theme="light"] .code{color:#40574a}
     body[data-theme="light"] .status{color:#16864b;border-color:#dce6de}
@@ -327,6 +340,288 @@
     .release-grid .card{min-height:205px}
     @media(max-width:700px){.release-action{align-items:stretch;flex-direction:column}.release-action .button{width:100%}.release-grid .card{min-height:0}}
 
+
+    /* Product showcase: editorial IDE hero and build pipeline */
+    .ide-brand{display:flex;align-items:center;gap:8px;color:#dce9df;font-weight:650}
+    .ide-brand i{width:7px;height:7px;border-radius:50%;background:#53e58b;box-shadow:0 0 10px #53e58b}
+    .ide-brand small{font-size:9px;color:#718278;font-weight:450}
+    .window-dots{display:flex;gap:5px}.window-dots b{width:6px;height:6px;border-radius:50%;background:#52645a}
+    .editor-tabs{height:37px;display:flex;align-items:center;gap:4px;padding:0 12px;background:#0a100d;border-bottom:1px solid #ffffff10;color:#78897e;font:9px ui-monospace,monospace;white-space:nowrap;overflow:hidden}
+    .editor-tabs>span{padding:8px 9px;border-radius:7px 7px 0 0}.editor-tabs .active-tab{color:#dce9df;background:#142019;border-bottom:1px solid #53e58b}
+    .tab-k{color:#53e58b;font-weight:800;margin-right:5px}
+    .screenbody{grid-template-rows:minmax(0,1fr) 37px}
+    .screenbody .files,.screenbody .code{min-height:365px}
+    .tree .selected-file{color:#83eda5;background:#53e58b12;border-radius:5px;padding-top:3px;padding-bottom:3px}
+    .code{font-size:10px;line-height:2.1}
+    .code-line{display:block;white-space:nowrap}
+    .code-line em{display:inline-block;width:20px;color:#52645a;font-style:normal;font-size:9px}
+    .code-comment{margin-top:10px;color:#d5ad75}
+    .cursor-line{height:13px;margin:3px 0 0 20px;border-left:1px solid #65e891;opacity:.8}
+    .status{display:flex;align-items:center;gap:7px;white-space:nowrap}
+    .status>span{font-size:13px}.status b{color:#53665a}.status small{color:#78897e;font-size:9px}
+    .status strong{margin-left:auto;color:#8bcfa0;font-size:8px;letter-spacing:.08em;font-weight:650}
+    .build-showcase{overflow:hidden}
+    .build-console{position:relative;overflow:hidden;border:1px solid #4b745b66;border-radius:25px;background:linear-gradient(145deg,#121c16,#0a100d 72%);box-shadow:0 28px 80px #0005,inset 0 1px #ffffff08}
+    .build-console:before{content:"";position:absolute;width:430px;height:260px;right:-140px;top:-180px;background:#53e58b16;filter:blur(70px);pointer-events:none}
+    .console-top{height:58px;padding:0 25px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:relative}
+    .console-title{display:flex;align-items:center;gap:10px;font-size:10px;letter-spacing:.15em;font-weight:800;color:#dce9df}
+    .console-live,.status-pulse{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 13px #53e58b}
+    .console-version{color:#718278;font-size:9px;font-weight:500}
+    .console-controls{display:flex;gap:5px}.console-controls i{width:7px;height:7px;border-radius:50%;background:#43554a}
+    .pipeline{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:43px 35px 39px}
+    .pipeline-step{width:21%;min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1}
+    .pipeline-icon{width:58px;height:58px;border-radius:18px;border:1px solid #ffffff17;background:linear-gradient(145deg,#1a2920,#101813);display:grid;place-items:center;color:#a5b8aa;margin-bottom:15px;box-shadow:0 12px 30px #0004}
+    .pipeline-icon .material-symbol{font-size:25px}
+    .pipeline-step.active .pipeline-icon,.output-step .pipeline-icon{color:var(--green);border-color:#53e58b70;background:linear-gradient(145deg,#1b3927,#102017);box-shadow:0 0 35px #53e58b17}
+    .step-no{font-size:8px;color:#779080;letter-spacing:.13em;margin-bottom:7px}
+    .pipeline-step strong{font-size:14px;letter-spacing:-.025em}
+    .pipeline-step small{font-size:10px;color:#84948a;margin-top:5px;line-height:1.5}
+    .pipeline-connector{height:1px;flex:1;min-width:14px;background:linear-gradient(90deg,#365440,#53e58b80,#365440);position:relative;margin-top:-58px}
+    .pipeline-connector span{position:absolute;right:0;top:-3px;width:6px;height:6px;border-radius:50%;background:#53e58b;box-shadow:0 0 10px #53e58b}
+    .console-bottom{display:grid;grid-template-columns:150px 1fr auto;align-items:center;gap:22px;padding:20px 25px;background:#080e0b;border-top:1px solid var(--line)}
+    .terminal-mark{display:flex;align-items:center;gap:8px;color:#8da095;font-size:9px;letter-spacing:.12em;font-weight:750}
+    .terminal-mark .material-symbol{color:var(--green);font-size:19px}
+    .terminal-lines{display:grid;gap:7px;font:10px ui-monospace,monospace;color:#9aaba0}
+    .terminal-lines>div{display:flex;align-items:center;gap:8px;min-width:0}
+    .terminal-lines i{font-style:normal;color:var(--green)}
+    .terminal-lines b{margin-left:auto;font-size:8px;color:#89b99a;letter-spacing:.1em}
+    .terminal-lines .terminal-green{color:var(--green)}
+    .pipeline-status{display:flex;align-items:center;gap:8px;color:#83958a;font-size:8px;letter-spacing:.1em;white-space:nowrap}
+    .status-pulse{width:6px;height:6px}
+    .build-details{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:15px}
+    .build-detail-card{padding:25px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#121a15,#0d120f);min-width:0;overflow:hidden}
+    .detail-heading{display:flex;align-items:center;gap:10px;color:#e6f0e8;font-weight:700;font-size:14px}
+    .detail-heading .material-symbol{font-size:21px;color:var(--green)}
+    .detail-heading b{margin-left:auto;color:#66786c;font-size:9px;letter-spacing:.12em}
+    .build-detail-card>p{max-width:48ch;color:var(--muted);font-size:12px;line-height:1.8;margin:12px 0 20px}
+    .dependency-visual{display:flex;align-items:center;gap:12px;padding:17px;border:1px solid #ffffff0e;border-radius:15px;background:#090f0b}
+    .dep-node{display:flex;align-items:center;gap:7px;padding:10px 12px;border:1px solid #53e58b55;border-radius:10px;background:#14271a;color:#cfe9d5;font-size:10px}
+    .dep-node .material-symbol{font-size:17px;color:var(--green)}
+    .dep-branches{width:25px;height:62px;position:relative;flex:0 0 25px;border-left:1px solid #477557}
+    .dep-branches:before,.dep-branches:after{content:"";position:absolute;left:0;width:25px;height:1px;background:#477557}
+    .dep-branches:before{top:0}.dep-branches:after{bottom:0}
+    .dep-branches span{position:absolute;left:0;top:50%;width:25px;height:1px;background:#477557}
+    .dep-children{display:grid;gap:7px;min-width:0;flex:1}
+    .dep-children>div{display:flex;align-items:center;gap:7px;padding:6px 9px;border:1px solid #ffffff10;border-radius:8px;color:#aab9ae;font-size:9px;background:#ffffff03}
+    .dep-dot{width:6px;height:6px;border-radius:50%;background:#53e58b}
+    .native-preview{display:grid;gap:7px}
+    .native-file{display:flex;align-items:center;gap:9px;padding:9px 11px;border:1px solid #ffffff10;border-radius:9px;background:#090f0b;color:#c1d0c5;font:10px ui-monospace,monospace}
+    .native-file .material-symbol{font-size:16px;color:var(--green)}
+    .native-file small{margin-left:auto;color:#74867a;font:8px ui-sans-serif,sans-serif;letter-spacing:.1em}
+    .native-tags{display:flex;gap:7px;margin-top:12px}
+    .native-tags span{padding:5px 9px;border:1px solid #ffffff17;border-radius:99px;color:#a9b9ad;font-size:9px}
+    .showcase-disclaimer{margin:13px 2px 0;color:#74847a;font-size:10px}
+    body[data-theme="light"] .build-console{background:linear-gradient(145deg,#fff,#eef5ef);border-color:#c8ddce;box-shadow:0 25px 70px #183b2510}
+    body[data-theme="light"] .console-top{border-color:#dce6de}
+    body[data-theme="light"] .console-title{color:#253b2c}
+    body[data-theme="light"] .console-bottom{background:#edf4ee;border-color:#dce6de}
+    body[data-theme="light"] .pipeline-icon{background:linear-gradient(145deg,#fff,#eaf2ec);border-color:#d8e5db;color:#52685a}
+    body[data-theme="light"] .pipeline-step.active .pipeline-icon,body[data-theme="light"] .output-step .pipeline-icon{background:#e2f3e7;color:#16864b;border-color:#abd4b7}
+    body[data-theme="light"] .pipeline-step strong,body[data-theme="light"] .detail-heading{color:#203628}
+    body[data-theme="light"] .pipeline-step small,body[data-theme="light"] .step-no,body[data-theme="light"] .pipeline-status{color:#68796e}
+    body[data-theme="light"] .build-detail-card{background:linear-gradient(145deg,#fff,#f0f5f1);border-color:#dce6de}
+    body[data-theme="light"] .dependency-visual,body[data-theme="light"] .native-file{background:#f6faf7;border-color:#dce6de}
+    body[data-theme="light"] .dep-node{background:#e5f4e9;color:#244b31;border-color:#b8d8c1}
+    body[data-theme="light"] .dep-children>div{background:#fff;border-color:#dce6de;color:#53665a}
+    body[data-theme="light"] .native-file{color:#40574a}
+    body[data-theme="light"] .native-tags span{color:#52665a;border-color:#d5e2d8}
+    body[data-theme="light"] .showcase-disclaimer{color:#75847a}
+    @media(max-width:850px){
+      .pipeline{padding:34px 20px}
+      .console-bottom{grid-template-columns:1fr;gap:13px}
+      .terminal-lines{max-width:100%}
+      .pipeline-status{justify-self:start}
+    }
+    @media(max-width:600px){
+      .editor-tabs{height:32px;padding:0 7px;font-size:8px}
+      .editor-tabs>span{padding:7px 6px}
+      .screenbody .files,.screenbody .code{min-height:0}
+      .status{gap:4px}.status small{display:none}.status strong{font-size:7px}
+      .pipeline{display:grid;grid-template-columns:1fr;gap:0;padding:22px 18px}
+      .pipeline-step{width:100%;display:grid;grid-template-columns:48px 1fr;grid-template-rows:auto auto;column-gap:13px;text-align:left;align-items:center;padding:9px 0}
+      .pipeline-icon{grid-column:1;grid-row:1 / span 3;width:43px;height:43px;border-radius:13px;margin:0}
+      .pipeline-icon .material-symbol{font-size:20px}
+      .step-no{grid-column:2;grid-row:1;margin:0;font-size:7px}
+      .pipeline-step strong{grid-column:2;grid-row:2;font-size:13px}
+      .pipeline-step small{grid-column:2;grid-row:3;margin:1px 0 0;font-size:9px}
+      .pipeline-connector{height:13px;width:1px;min-width:0;flex:none;margin:0 0 0 21px;background:linear-gradient(180deg,#365440,#53e58b80,#365440)}
+      .pipeline-connector span{right:auto;left:-3px;top:auto;bottom:0}
+      .console-top{height:50px;padding:0 15px}
+      .console-title{font-size:8px;gap:7px}.console-version{font-size:7px}
+      .console-bottom{padding:16px}
+      .terminal-lines{font-size:8px}
+      .terminal-lines b{font-size:7px}
+      .build-details{grid-template-columns:1fr;gap:11px}
+      .build-detail-card{padding:20px}
+      .dependency-visual{gap:8px;padding:12px}
+      .dep-node{padding:8px;font-size:9px}
+      .dep-branches{width:17px;flex-basis:17px}
+      .dep-branches:before,.dep-branches:after,.dep-branches span{width:17px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .pipeline-icon,.build-detail-card{transition:none!important}
+    }
+
+    /* === Device editor chrome — full light-theme support (fixes always-black editor band) === */
+    body[data-theme="light"] .ide-brand{color:#244b31}
+    body[data-theme="light"] .ide-brand small{color:#6b7d71}
+    body[data-theme="light"] .ide-brand i{background:#16864b;box-shadow:0 0 10px #16864b80}
+    body[data-theme="light"] .window-dots b{background:#b5c6ba}
+    body[data-theme="light"] .editor-tabs{background:#eaf1eb;border-bottom-color:#d7e2d9;color:#5a6d61}
+    body[data-theme="light"] .editor-tabs>span{color:#5a6d61}
+    body[data-theme="light"] .editor-tabs .active-tab{color:#1c3023;background:#f8fbf8;border-bottom-color:#16864b}
+    body[data-theme="light"] .tab-k{color:#16864b}
+    body[data-theme="light"] .code .purple{color:#7c3aed}
+    body[data-theme="light"] .code .green{color:#0d7a3d}
+    body[data-theme="light"] .code .blue{color:#0f6da8}
+    body[data-theme="light"] .code .orange{color:#b45309}
+    body[data-theme="light"] .code-line em{color:#a0b0a5}
+    body[data-theme="light"] .code-comment{color:#a86a2a}
+    body[data-theme="light"] .cursor-line{border-color:#16864b}
+    body[data-theme="light"] .tree .selected-file{color:#0d6e3b;background:#dff0e5}
+    body[data-theme="light"] .status strong{color:#16864b}
+    body[data-theme="light"] .status small{color:#7a8c7f}
+    body[data-theme="light"] .status b{color:#a0b0a5}
+
+
+    /* === HERO BACKDROP — cinematic image that fades into the page === */
+    .hero-backdrop{
+      position:absolute;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      overflow:hidden;
+
+      /* Fade to page background toward the bottom */
+      -webkit-mask-image:linear-gradient(to bottom,
+        #000 0%, #000 42%, rgba(0,0,0,.55) 70%, rgba(0,0,0,.15) 88%, transparent 98%);
+              mask-image:linear-gradient(to bottom,
+        #000 0%, #000 42%, rgba(0,0,0,.55) 70%, rgba(0,0,0,.15) 88%, transparent 98%);
+
+      opacity:0;
+      transform:scale(1.05);
+      animation:heroBackdropIn 1.7s cubic-bezier(.22,.61,.36,1) .1s forwards;
+      will-change:opacity, transform;
+    }
+    .hero-backdrop img{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center 40%;
+      user-select:none;
+      -webkit-user-drag:none;
+    }
+    /* Readability overlay: darken left (text zone) + dissolve bottom into bg */
+    .hero-backdrop::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:1;
+      background:
+        linear-gradient(to bottom,
+          transparent 38%,
+          color-mix(in srgb, var(--bg) 40%, transparent) 68%,
+          var(--bg) 100%),
+        linear-gradient(to right,
+          color-mix(in srgb, var(--bg) 82%, transparent) 0%,
+          color-mix(in srgb, var(--bg) 48%, transparent) 42%,
+          color-mix(in srgb, var(--bg) 12%, transparent) 100%);
+    }
+    @keyframes heroBackdropIn{
+      to{ opacity:1; transform:scale(1); }
+    }
+
+    /* Light theme: soften and desaturate the neon scene */
+    body[data-theme="light"] .hero-backdrop img{
+      filter:brightness(1.18) saturate(.55) contrast(.88);
+    }
+    body[data-theme="light"] .hero-backdrop::after{
+      background:
+        linear-gradient(to bottom,
+          transparent 35%,
+          color-mix(in srgb, var(--bg) 45%, transparent) 65%,
+          var(--bg) 100%),
+        linear-gradient(to right,
+          color-mix(in srgb, var(--bg) 90%, transparent) 0%,
+          color-mix(in srgb, var(--bg) 62%, transparent) 45%,
+          color-mix(in srgb, var(--bg) 30%, transparent) 100%);
+    }
+
+    /* Mobile: keep the laptop and phone in view, strengthen overlay for readability */
+    @media (max-width:700px){
+      .hero-backdrop img{ object-position:center 32%; }
+      .hero-backdrop::after{
+        background:
+          linear-gradient(to bottom,
+            transparent 22%,
+            color-mix(in srgb, var(--bg) 55%, transparent) 55%,
+            var(--bg) 100%),
+          linear-gradient(to right,
+            color-mix(in srgb, var(--bg) 85%, transparent) 0%,
+            color-mix(in srgb, var(--bg) 55%, transparent) 100%);
+      }
+    }
+
+    /* Accessibility: honor reduced-motion */
+    @media (prefers-reduced-motion:reduce){
+      .hero-backdrop{ animation:none; opacity:1; transform:none; will-change:auto; }
+    }
+
+
+    /* Complete theme tokens and responsive compatibility section */
+    :root{color-scheme:dark;--surface:#101613;--surface-raised:#141d18;--surface-soft:#0d120f;--ink:#f2f6f2;--muted-ink:#9aa79e;--stroke:rgba(185,220,198,.14);--accent:#53e58b;--accent-ink:#06150b}
+    body[data-theme="light"]{color-scheme:light;--surface:#ffffff;--surface-raised:#f0f5f1;--surface-soft:#f6faf7;--ink:#17231b;--muted-ink:#5d6d62;--stroke:rgba(35,75,48,.16);--accent:#16864b;--accent-ink:#ffffff}
+    body{background:var(--bg);color:var(--text);transition:background-color .28s ease,color .28s ease}
+    body[data-theme="light"] .topbar{background:rgba(244,247,244,.9);border-color:var(--stroke)}
+    body[data-theme="light"] .navlinks{color:#526258}
+    body[data-theme="light"] .navlinks a{color:inherit}
+    body[data-theme="light"] .menu{color:#263b2d;background:#fff;border-color:#d5e1d8}
+    body[data-theme="light"] .theme-toggle{background:#fff;color:#244b31;border-color:#cbdccf}
+    body[data-theme="light"] .theme-toggle:hover{background:#e8f4eb}
+    body[data-theme="light"] .nav-cta{background:#e8f2eb;color:#183b27;border-color:#b7d2bf}
+    body[data-theme="light"] .button.secondary{background:#fff;color:#263b2d;border-color:#d5e1d8}
+    body[data-theme="light"] .button.primary{background:#16864b;color:#fff;border-color:#16864b}
+    body[data-theme="light"] .button.primary:hover{background:#0d6e3b}
+    body[data-theme="light"] .card,body[data-theme="light"] .language,body[data-theme="light"] .blog-card,body[data-theme="light"] .build-detail-card{background:linear-gradient(145deg,#fff,#f0f5f1);border-color:#dce6de}
+    body[data-theme="light"] .roadmap{background:radial-gradient(circle at 90% 0,#53e58b18,transparent 45%),linear-gradient(120deg,#edf6ef,#fff);border-color:#c9dfcf}
+    body[data-theme="light"] .cta{background:radial-gradient(ellipse at 50% 0,#53e58b18,transparent 60%),#fff;border-color:#dce6de}
+    body[data-theme="light"] .chip{color:#4b5e51;border-color:#d6e2d9;background:#f8fbf8}
+    body[data-theme="light"] .footer-brand{color:#1c3023}
+    body[data-theme="light"] .release-note strong,body[data-theme="light"] .hero-meta b{color:#263d2e}
+    body[data-theme="light"] .showcase-disclaimer{color:#65776b}
+    .compatibility-panel{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+    .compat-card{position:relative;min-width:0;overflow:hidden;padding:30px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,#121b16,#0c110f);transition:transform .25s,border-color .25s,background .25s}
+    .compat-card:hover{transform:translateY(-4px);border-color:#53e58b66}
+    .compat-top{display:flex;align-items:center;gap:12px;color:var(--green)}
+    .compat-top .material-symbol{font-size:25px}
+    .compat-label{font-size:10px;font-weight:800;letter-spacing:.16em;color:var(--muted)}
+    .compat-range{margin:17px 0 5px;font-size:clamp(54px,7vw,78px);font-weight:800;line-height:1;letter-spacing:-.08em;color:var(--text)}
+    .compat-range i{font-style:normal;color:var(--green);font-size:.55em;vertical-align:middle;margin:0 8px}
+    .compat-card p{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.7}
+    .android-version-list{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:7px;margin-top:24px}
+    .android-version-list span{display:grid;place-items:center;min-width:0;aspect-ratio:1;border:1px solid var(--line);border-radius:11px;background:#53e58b0b;color:var(--text);font-size:12px;font-weight:700}
+    .arch-options{display:flex;align-items:center;gap:24px;margin:25px 0 12px}
+    .arch-option{display:grid;grid-template-columns:auto auto;align-items:end;column-gap:6px}
+    .arch-option strong{font-size:clamp(48px,6vw,68px);line-height:.95;letter-spacing:-.08em;color:var(--green)}
+    .arch-option span{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--muted);padding-bottom:6px}
+    .arch-option small{grid-column:1/-1;margin-top:8px;color:var(--muted);font-size:11px}
+    .arch-divider{height:65px;width:1px;background:var(--line)}
+    .compat-note{display:flex;align-items:flex-start;gap:8px;margin:15px 2px 0;color:var(--muted);font-size:11px;line-height:1.6}
+    .compat-note .material-symbol{color:var(--green);font-size:17px;flex:0 0 auto}
+    body[data-theme="light"] .compat-card{background:linear-gradient(145deg,#fff,#f0f5f1);border-color:#dce6de}
+    body[data-theme="light"] .android-version-list span{background:#eaf5ed;border-color:#d5e5d9;color:#244b31}
+    body[data-theme="light"] .arch-divider{background:#d5e1d8}
+    /* Prevent overflow and awkward line wrapping on compact phones and tablets. */
+    img,svg,video{max-width:100%;height:auto}
+    .wrap,.section,.section-head,.hero-grid,.compat-card,.card,.language,.build-console,.build-detail-card{min-width:0}
+    h1,h2,h3,p,.lead,.section-head p,.card p,.language p,.roadmap p,.blog-card p{overflow-wrap:anywhere}
+    .navlinks a,.footer-links a{white-space:nowrap}
+    @media(max-width:900px){.compatibility-panel{grid-template-columns:1fr 1fr}.compat-card{padding:24px}.android-version-list{gap:5px}}
+    @media(max-width:700px){.compatibility-panel{grid-template-columns:1fr}.compat-card{padding:23px}.compat-range{font-size:58px}.arch-option strong{font-size:58px}.android-version-list{gap:7px}.android-version-list span{border-radius:9px}.compat-note{font-size:10px}}
+    @media(max-width:380px){.wrap{width:calc(100% - 28px)}nav{gap:8px}.brand{font-size:14px}.brand-mark{width:31px;height:31px}.theme-toggle{width:37px;height:37px}.compat-card{padding:18px}.android-version-list{gap:4px}.android-version-list span{font-size:10px}.arch-options{gap:16px}}
+    @media(prefers-reduced-motion:reduce){body,.compat-card{transition:none!important}.compat-card:hover{transform:none}}
+
   </style>
 </head>
 <body>
@@ -336,7 +631,7 @@
     <nav aria-label="Main navigation">
       <a class="brand" href="#top"><span class="brand-mark">A</span><span>Android Studio</span></a>
       <div class="navlinks" id="navlinks">
-        <a href="#features">Features</a><a href="#languages">Languages</a><a href="#roadmap">Roadmap</a><a href="#releases">Releases</a><a href="#blog">Updates</a>
+        <a href="#features">Features</a><a href="#build-system">Build System</a><a href="#languages">Languages</a><a href="#compatibility">Compatibility</a><a href="#roadmap">Roadmap</a><a href="#releases">Releases</a><a href="#blog">Updates</a>
       </div>
       <div class="nav-actions"><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" title="Switch theme"><span class="material-symbol" id="themeIcon" aria-hidden="true">light_mode</span></button><a class="nav-cta" href="https://github.com/droidxwork-maker/Android-Studio" target="_blank" rel="noopener">GitHub <span>↗</span></a></div>
       <button class="menu" id="menu" aria-label="Toggle navigation" aria-expanded="false">☰</button>
@@ -346,6 +641,11 @@
 
 <main id="top">
   <section class="hero">
+    <!-- Cinematic backdrop: fades into the page -->
+    <div class="hero-backdrop" aria-hidden="true">
+      <img src="hero-bg.jpg" alt="" decoding="async" fetchpriority="high">
+    </div>
+
     <div class="wrap hero-grid">
       <div>
         <div class="eyebrow hero-kicker"><span class="dot"></span> A mobile-first development environment</div>
@@ -363,13 +663,14 @@
         <div class="glow"></div>
         <div class="device">
           <div class="screen">
-            <div class="screenbar"><span>● Android Studio</span><span>•••</span></div>
+            <div class="screenbar"><span class="ide-brand"><i></i> Android Studio <small>· mobile IDE</small></span><span class="window-dots"><b></b><b></b><b></b></span></div>
+            <div class="editor-tabs"><span class="active-tab"><span class="tab-k">K</span> MainActivity.kt</span><span>build.gradle.kts</span><span>＋</span></div>
             <div class="screenbody">
-              <div class="files"><div class="filetitle">PROJECT</div><div class="tree">
-                <span>⌄　MyApplication</span><span>⌄　app</span><span>▸　manifests</span><span>▾　java</span><span>　　MainActivity.kt</span><span>▸　res</span><span>▸　Native</span><span>　　CMakeLists.txt</span><span>▸　Libraries</span><span>　　build.gradle.kts</span>
+              <div class="files"><div class="filetitle">PROJECT EXPLORER</div><div class="tree">
+                <span>⌄　MyApplication</span><span>⌄　app</span><span>▸　manifests</span><span>▾　kotlin</span><span class="selected-file">　 MainActivity.kt</span><span>▸　res</span><span>▾　native</span><span>　 CMakeLists.txt</span><span>▸　Libraries</span><span>　 build.gradle.kts</span>
               </div></div>
-              <div class="code"><span class="purple">package</span> com.example.app<br><br><span class="purple">class</span> <span class="green">MainActivity</span> {<br>&nbsp; <span class="purple">fun</span> onCreate() {<br>&nbsp;&nbsp; <span class="blue">setContentView</span>(<br>&nbsp;&nbsp;&nbsp; R.layout.main<br>&nbsp;&nbsp; )<br>&nbsp; }<br>}<br><br><span class="orange">// Build. Run. Create.</span></div>
-              <div class="status">✓ Build pipeline ready</div>
+              <div class="code"><div class="code-line"><em>01</em> <span class="purple">package</span> com.example.app</div><div class="code-line"><em>02</em></div><div class="code-line"><em>03</em> <span class="purple">class</span> <span class="green">MainActivity</span> {</div><div class="code-line"><em>04</em> &nbsp; <span class="purple">fun</span> onCreate() {</div><div class="code-line"><em>05</em> &nbsp;&nbsp; <span class="blue">setContentView</span>(R.layout.main)</div><div class="code-line"><em>06</em> &nbsp; }</div><div class="code-line"><em>07</em> }</div><div class="code-line code-comment"><em>08</em> // Build. Run. Create.</div><div class="cursor-line"><span></span></div></div>
+              <div class="status"><span>✓</span> Build pipeline ready <b>·</b> <small>Project workspace</small><strong>JAVA&nbsp; 17&nbsp;&nbsp; KOTLIN</strong></div>
             </div>
           </div>
         </div>
@@ -392,6 +693,76 @@
     </div>
   </section>
 
+
+  <section class="section build-showcase" id="build-system">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="kicker">Inside the workflow</div><h2>One pipeline.<br>From source to build.</h2></div>
+        <p>A closer look at the integrated build experience — bringing project configuration, dependency handling and compilation into one connected workflow.</p>
+      </div>
+
+      <div class="build-console">
+        <div class="console-top">
+          <div class="console-title"><span class="console-live"></span> BUILD PIPELINE <span class="console-version">WORKFLOW OVERVIEW</span></div>
+          <div class="console-controls"><i></i><i></i><i></i></div>
+        </div>
+        <div class="pipeline">
+          <div class="pipeline-step">
+            <div class="pipeline-icon"><span class="material-symbol">folder_open</span></div>
+            <span class="step-no">01 / INPUT</span><strong>Project</strong><small>Source · Resources · Config</small>
+          </div>
+          <div class="pipeline-connector"><span></span></div>
+          <div class="pipeline-step active">
+            <div class="pipeline-icon"><span class="material-symbol">account_tree</span></div>
+            <span class="step-no">02 / RESOLVE</span><strong>Dependencies</strong><small>Libraries · Versions · Graph</small>
+          </div>
+          <div class="pipeline-connector"><span></span></div>
+          <div class="pipeline-step">
+            <div class="pipeline-icon"><span class="material-symbol">settings_suggest</span></div>
+            <span class="step-no">03 / PROCESS</span><strong>Build Engine</strong><small>Compile · Merge · Package</small>
+          </div>
+          <div class="pipeline-connector"><span></span></div>
+          <div class="pipeline-step output-step">
+            <div class="pipeline-icon"><span class="material-symbol">deployed_code</span></div>
+            <span class="step-no">04 / OUTPUT</span><strong>Artifact</strong><small>APK · Native libraries</small>
+          </div>
+        </div>
+        <div class="console-bottom">
+          <div class="terminal-mark"><span class="material-symbol">terminal</span><span>BUILD OUTPUT</span></div>
+          <div class="terminal-lines">
+            <div><i>›</i> <span>Resolving project configuration</span><b>DONE</b></div>
+            <div><i>›</i> <span>Preparing dependencies and build tasks</span><b>READY</b></div>
+            <div><i>›</i> <span>Integrated pipeline</span><b class="terminal-green">CONNECTED</b></div>
+          </div>
+          <div class="pipeline-status"><span class="status-pulse"></span> WORKFLOW MODEL</div>
+        </div>
+      </div>
+
+      <div class="build-details">
+        <article class="build-detail-card">
+          <div class="detail-heading"><span class="material-symbol">hub</span><span>Dependency management</span><b>01</b></div>
+          <p>Organize project libraries and dependency relationships as part of the integrated build process.</p>
+          <div class="dependency-visual" aria-label="Illustrative dependency graph">
+            <div class="dep-node dep-root"><span class="material-symbol">widgets</span><b>App</b></div>
+            <div class="dep-branches"><span></span><span></span><span></span></div>
+            <div class="dep-children"><div><span class="dep-dot"></span> AndroidX</div><div><span class="dep-dot"></span> Material</div><div><span class="dep-dot"></span> Libraries</div></div>
+          </div>
+        </article>
+        <article class="build-detail-card">
+          <div class="detail-heading"><span class="material-symbol">memory</span><span>Native development</span><b>02</b></div>
+          <p>Work with native project components and build native libraries within the broader Android workflow.</p>
+          <div class="native-preview">
+            <div class="native-file"><span class="material-symbol">description</span><span>CMakeLists.txt</span><small>CONFIG</small></div>
+            <div class="native-file"><span class="material-symbol">code</span><span>native-lib.cpp</span><small>C++</small></div>
+            <div class="native-file"><span class="material-symbol">deployed_code</span><span>libnative.so</span><small>OUTPUT</small></div>
+          </div>
+          <div class="native-tags"><span>C / C++</span><span>NDK</span><span>JNI</span></div>
+        </article>
+      </div>
+      <p class="showcase-disclaimer">Visual representation of the planned product workflow. Specific capabilities may evolve during development.</p>
+    </div>
+  </section>
+
   <section class="section" id="languages">
     <div class="wrap">
       <div class="section-head"><div><div class="kicker">Language support</div><h2>Your tools. Your languages.</h2></div><p>The first Beta is planned to expand language support and bring Kotlin into the development workflow.</p></div>
@@ -399,6 +770,35 @@
         <article class="language"><span class="language-index">01 / LANGUAGE</span><div class="language-symbol"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin logo"></div><div class="language-copy"><h3>Kotlin</h3><p>Planned for the first Beta release</p></div><span class="label">COMING IN BETA</span></article>
         <article class="language"><span class="language-index">02 / LANGUAGE</span><div class="language-symbol"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java logo"></div><div class="language-copy"><h3>Java 1–17</h3><p>Support planned for the first Beta</p></div><span class="label">JAVA 1–17</span></article>
       </div>
+    </div>
+  </section>
+
+  <section class="section" id="compatibility">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="kicker">Broad device compatibility</div><h2>Built for more Android devices.</h2></div>
+        <p>Android Studio is planned to support a wide range of devices, from Android 9 through Android 16, with builds for both 32-bit and 64-bit architectures.</p>
+      </div>
+      <div class="compatibility-panel">
+        <article class="compat-card compat-android">
+          <div class="compat-top"><span class="material-symbol">android</span><span class="compat-label">ANDROID VERSIONS</span></div>
+          <div class="compat-range">9 <i>→</i> 16</div>
+          <p>Planned installation support across Android 9–16.</p>
+          <div class="android-version-list" aria-label="Android versions 9 through 16">
+            <span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span>
+          </div>
+        </article>
+        <article class="compat-card compat-arch">
+          <div class="compat-top"><span class="material-symbol">developer_board</span><span class="compat-label">CPU ARCHITECTURES</span></div>
+          <div class="arch-options">
+            <div class="arch-option"><strong>32</strong><span>BIT</span><small>32-bit devices</small></div>
+            <div class="arch-divider"></div>
+            <div class="arch-option"><strong>64</strong><span>BIT</span><small>64-bit devices</small></div>
+          </div>
+          <p>Planned packages for both 32-bit and 64-bit Android environments.</p>
+        </article>
+      </div>
+      <p class="compat-note"><span class="material-symbol">info</span> Compatibility targets are planned specifications and will be confirmed with the published Beta builds.</p>
     </div>
   </section>
 
@@ -462,9 +862,10 @@
   </section>
 </main>
 
-<footer><div class="wrap footer-inner"><div><div class="footer-brand">Android Studio</div><div>Code. Build. Run. Anywhere.</div></div><div class="footer-links"><a href="#features">Features</a><a href="#roadmap">Roadmap</a><a href="#releases">Releases</a><a href="#blog">Updates</a><a href="https://github.com/droidxwork-maker/Android-Studio" target="_blank" rel="noopener">GitHub ↗</a></div><div>© 2026 Android Studio Project</div></div></footer>
+<footer><div class="wrap footer-inner"><div><div class="footer-brand">Android Studio</div><div>Code. Build. Run. Anywhere.</div></div><div class="footer-links"><a href="#features">Features</a><a href="#build-system">Build System</a><a href="#compatibility">Compatibility</a><a href="#roadmap">Roadmap</a><a href="#releases">Releases</a><a href="#blog">Updates</a><a href="https://github.com/droidxwork-maker/Android-Studio" target="_blank" rel="noopener">GitHub ↗</a></div><div>© 2026 Android Studio Project</div></div></footer>
 <script>
 
+  /* ---------- Theme ---------- */
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = document.getElementById('themeIcon');
   const themeMeta = document.querySelector('meta[name="theme-color"]');
@@ -472,18 +873,23 @@
   function applyTheme(theme) {
     document.body.dataset.theme = theme;
     const isDark = theme === 'dark';
-    themeIcon.textContent = isDark ? 'light_mode' : 'dark_mode';
-    themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
-    themeToggle.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    if (themeIcon) themeIcon.textContent = isDark ? 'light_mode' : 'dark_mode';
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+      themeToggle.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+      themeToggle.setAttribute('aria-pressed', String(!isDark));
+    }
     if (themeMeta) themeMeta.setAttribute('content', isDark ? '#080b0a' : '#f4f7f4');
   }
+  /* Default theme is always dark unless the user explicitly switched to light. */
   applyTheme(savedTheme === 'light' ? 'light' : 'dark');
-  themeToggle.addEventListener('click', () => {
+  if (themeToggle) themeToggle.addEventListener('click', () => {
     const next = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
     applyTheme(next);
     try { localStorage.setItem('android-studio-theme', next); } catch (_) {}
   });
 
+  /* ---------- Mobile menu ---------- */
   const menu = document.getElementById('menu');
   const links = document.getElementById('navlinks');
   menu.addEventListener('click', () => {
@@ -494,6 +900,31 @@
   links.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
     links.classList.remove('open'); menu.setAttribute('aria-expanded','false'); menu.textContent='☰';
   }));
+
+  /* ---------- Hero parallax + scroll fade ---------- */
+  (function heroParallax(){
+    const hero = document.querySelector('.hero');
+    const backdrop = document.querySelector('.hero-backdrop');
+    if (!hero || !backdrop) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let raf = 0;
+    function update(){
+      raf = 0;
+      const rect = hero.getBoundingClientRect();
+      /* Stop work when the hero is completely out of view */
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      /* progress = 0 at hero top, 1 when the hero top reaches -hero.height */
+      const progress = Math.min(1, Math.max(0, -rect.top / rect.height));
+      backdrop.style.opacity = String(1 - progress * 0.85);
+      backdrop.style.transform = `scale(${1 + progress * 0.06}) translateY(${progress * 22}px)`;
+    }
+    function onScroll(){ if (!raf) raf = requestAnimationFrame(update); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  })();
+
 </script>
 </body>
-  </html>
+</html>
